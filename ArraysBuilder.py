@@ -16,6 +16,7 @@ def serialOverlap_arr(string, parts, overlap):
             sub_string_arr[i] += ((sub_string_arr[i + 1])[0:int(overlap * len(sub_string_arr[i + 1]))])
             i += 1
         lap = 1
+    print sub_string_arr
     return sub_string_arr;
 
 #this function map the string to #parts subarrays, diffrent length to each part, all the string is mapped
@@ -40,9 +41,10 @@ def allOverlap_randomLen(string, parts=0, min_len_per=0, max_len_per=1, min_over
 #this function sample random index and put string[ind:ind+const] in arr
 def randomSample_constLen(string, parts=0, constlen=0):
     arr=[]; strlen=len(string);
+    constlen=int(constlen*strlen)
     for x in range(parts):
         ind=random.randint(0,strlen-1)
-        arr.append(string[ind,min(ind+constlen,strlen-1)])
+        arr.append(string[ind:min(ind+constlen,strlen-1)])
     return arr
 
 # this function get a 2-dimentional array, and start+end rows to make random #per_OfFlipsInStr% flips in each string

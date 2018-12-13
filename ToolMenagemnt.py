@@ -58,17 +58,20 @@ def run_plass(arr, x, y, res_vec, source): #run plass and calc statistics
     #delete output file
     if os.path.exists(DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas"):
         os.remove(DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas")
-        os.chmod(DEFINES.PLASS_PYTHON_PATH+"tmp",0o777)
-        shutil.rmtree(DEFINES.PLASS_PYTHON_PATH+"tmp")
-
+        os.chmod(DEFINES.PYTHON_PATH+"tmp",0o777)
+        shutil.rmtree(DEFINES.PYTHON_PATH+"tmp")
     else:
-        print("The file does not exist")
+        print("-------------The file does not exist")
 
     subprocess.call([r"/home/ubu/Yael/plass/bin/plass", "nuclassemble",
                      DEFINES.PATH_FILES + "in/" + DEFINES.FILE_IN_NAME + ".fasta",
                      DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas", "tmp"])
-
-    if os.stat(DEFINES.PATH_FILES+"out/" + DEFINES.FILE_OUT_NAME+".fas").st_size != 0: #full file
+    if not (os.path.exists(DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas")):
+        os.chmod(DEFINES.PYTHON_PATH + "tmp", 0o777)
+        shutil.rmtree(DEFINES.PYTHON_PATH + "tmp")
+        res_vec["Z"][-1].append(-1)
+        print "----------------------output file not created"
+    elif os.stat(DEFINES.PATH_FILES+"out/" + DEFINES.FILE_OUT_NAME+".fas").st_size != 0: #full file
         fasta_file = open(DEFINES.PATH_FILES+"out/" + DEFINES.FILE_OUT_NAME+".fas", 'r')
         arr2=FASTA2arr(fasta_file)
         fasta_file.close()
@@ -80,9 +83,6 @@ def run_plass(arr, x, y, res_vec, source): #run plass and calc statistics
         res_vec['X'].append(x)
 
     return res_vec
-
-
-
 
 #UN-USED
 # this function (for now) only return true for "the same" and otherwise- false.

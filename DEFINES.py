@@ -9,13 +9,14 @@ STRING_LEN=200
 
 #mistakes difines
 FLIP_MOD = False
-DELETE_MOD = True
+DELETE_MOD = False
 MIXED = False
 RANDOM_DELETIONS= False
 
 #overlaps mods to test
 RANDOM_OVERLAP_MOD=False
-SERIAL_OVERLAP_MOD=True
+SERIAL_OVERLAP_MOD=False
+RANDOM_SAMPLE_MOD=True#False#True
 
 #paths
 FILE_IN_NAME="lola"
@@ -29,7 +30,7 @@ PLASS_PROGRAM_PATH="/home/ubu/Yael/plass/bin/"			    #the program-call pat
 
 PATH_PROGRAM=PLASS_PROGRAM_PATH;
 PATH_FILES=PLASS_FILES_PATH;
-PLASS_PYTHON_PATH="/home/ubu/PycharmProjects/Assembly_Analyzer/"			    #the program-call pat
+PYTHON_PATH="/home/ubu/PycharmProjects/Assembly_Analyzer/"			    #the program-call pat
 
 #plots
 GRAPH_MID=False

@@ -23,16 +23,14 @@ def flat_arr(arr):
     return res
 
 #plot mistakes graph- scatter\bars (can describe avg)
-def py_plotAll(num_of_mis,res,g_ind,mis_name,avg,scatter,hist):
+def py_plotAll(res,g_ind,mis_name,avg, xlabel, ylabel,scatter,hist):
     # plot preparetion: pos=data in x axis and in y axis. *BUT* not in z axis, data in Z axis is dz_flip
     # link-histogram: https://www.youtube.com/watch?v=W94Kv8-c_5g
     # link2: https://jakevdp.github.io/PythonDataScienceHandbook/04.12-three-dimensional-plotting.htmlnum_of_lines=(NUMBER_OF_STRINGS_MAX-NUMBER_OF_STRINGS+1)    num_of_lines = (NUMBER_OF_STRINGS_MAX - NUMBER_OF_STRINGS + 1)
-    # num_of_mis=len(res["Y"])
+    num_of_mis=len(res["Y"])
     num_of_lines=len(res["X"]) #NUMBER_OF_STRINGS_MAX+1-NUMBER_OF_STRINGS
     xPos = multiply_array(res["X"], num_of_mis)  # number of lines
     yPos = multiply_elemnt(range(0,num_of_mis), num_of_lines)  # number of flips per line
-    # print "y:"
-    # print yPos
     zPos = np.zeros((num_of_mis) * num_of_lines)  # start position of the cherts is 0
 
     dx = 0.9*np.ones(num_of_lines * (num_of_mis))
@@ -69,8 +67,8 @@ def py_plotAll(num_of_mis,res,g_ind,mis_name,avg,scatter,hist):
         fig2 = plt.figure(g_ind+1)
         ax4 = fig2.add_subplot(111, projection='3d')
         ax4.scatter3D(xPos, yPos, dz, dz, cmap='Greens');
-        ax4.set_xlabel('parts')
-        ax4.set_ylabel('overlap')
+        ax4.set_xlabel(xlabel)
+        ax4.set_ylabel(ylabel)
         ax4.set_zlabel('mistake - precent')
         ax4.set_title(mis_name)
 
