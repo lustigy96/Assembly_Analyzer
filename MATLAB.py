@@ -45,7 +45,6 @@ def makeMATLAB(fileName,listList,minX,maxX, minY,maxY,xlabel,ylabel,zlabel, gapX
     f.write("savefig('"+fileName+"1')\n")
 
 
-
     f.write("%%PRINT RESULT OBJECT WITH SATTISTICS\n")
     f.write("figure\n")
     f.write("ZZ(ZZ == 1) = 100;\n")
