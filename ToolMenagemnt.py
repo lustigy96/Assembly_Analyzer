@@ -63,9 +63,13 @@ def run_plass(arr, x, y, res_vec, source): #run plass and calc statistics
     else:
         print("-------------The file does not exist")
 
+    # subprocess.call([r"/home/ubu/Yael/plass/bin/plass", "nuclassemble",
+    #                  DEFINES.PATH_FILES + "in/" + DEFINES.FILE_IN_NAME + ".fasta",
+    #                  DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas", "tmp"])
+
     subprocess.call([r"/home/ubu/Yael/plass/bin/plass", "nuclassemble",
                      DEFINES.PATH_FILES + "in/" + DEFINES.FILE_IN_NAME + ".fasta",
-                     DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas", "tmp"])
+                     DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas", "tmp", "--min-seq-id", "1","--num-iterations","120"])
     if not (os.path.exists(DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas")):
         os.chmod(DEFINES.PYTHON_PATH + "tmp", 0o777)
         shutil.rmtree(DEFINES.PYTHON_PATH + "tmp")

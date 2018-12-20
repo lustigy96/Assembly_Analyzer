@@ -36,12 +36,13 @@ def py_plotAll(res,g_ind,mis_name,avg, xlabel, ylabel,scatter,hist):
     dx = 0.9*np.ones(num_of_lines * (num_of_mis))
     dy = 0.9*np.ones(num_of_lines * (num_of_mis))
     dz = flat_arr(res["Z"])
-    # print len(dx)
-    # print len(dy)
-    # print len(dz)
-    # print len(xPos)
-    # print len(yPos)
-    # print len(zPos)
+    #
+    print len(dx)
+    print len(dy)
+    print len(dz)
+    print len(xPos)
+    print len(yPos)
+    print len(zPos)
     c=[]
     # for z in dz:
     #     c.append(0.01*z)
@@ -59,8 +60,8 @@ def py_plotAll(res,g_ind,mis_name,avg, xlabel, ylabel,scatter,hist):
         ax3.bar3d(xPos, yPos, zPos, dx, dy, dz, color= '#00cc66')  # '#00cc66')#cmap=cm.afmhot)
         # ax3.bar3d(xPos, yPos, zPos, dx, dy, dz,color=colors)#'#00cc66')#cmap=cm.afmhot) #for hit-map
         if avg: ax3.bar3d(xPos_avg, yPos_avg, zPos_avg, dx_avg, dy_avg, dz_avg, color='#cc4466')
-        ax3.set_xlabel('parts')
-        ax3.set_ylabel('overlap')
+        ax3.set_xlabel(xlabel)
+        ax3.set_ylabel(ylabel)
         ax3.set_zlabel('mistake - precent')
         ax3.set_title(mis_name)
     if scatter:

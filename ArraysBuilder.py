@@ -47,6 +47,25 @@ def randomSample_constLen(string, parts=0, constlen=0):
         arr.append(string[ind:min(ind+constlen,strlen-1)])
     return arr
 
+#make flips on 2-dim array with probability=probToFlip
+def flipsOnArr(arr,probToFlip):
+    arr=list(arr)
+    for x in range(len(arr)):
+        for i in range(len(arr[x])):
+            r=random.uniform(0,1);
+            if r<probToFlip:
+                if arr[x][i] == '1':
+                    arr[x] = arr[x][:i] + '0' + arr[x][i + 1:]
+                else:
+                    arr[x] = arr[x][:i] + '1' + arr[x][i + 1:]
+    # arr = ''.join(arr)
+    return arr;
+
+
+
+
+
+
 # this function get a 2-dimentional array, and start+end rows to make random #per_OfFlipsInStr% flips in each string
 #has to be in precent because the parts are not equal
 def makeOfFlipsInStr(arr, start_index_line, end_index_line, per_OfFlipsInStr,numberOfFlipsInStr):
@@ -87,3 +106,4 @@ def makeRandomDeletionsInStr(arr, start_index_line, end_index_line, per_numberOf
 def makeMixedMistakesInStr(arr, start_index_line, end_index_line, per_numberOfRandomDeletionsInStr):
     # didnt do yet
     return arr
+

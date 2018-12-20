@@ -5,18 +5,18 @@ BASER=0
 PLASS=1
 
 #string
-STRING_LEN=200
+STRING_LEN=2000
 
 #mistakes difines
-FLIP_MOD = False
+FLIP_MOD = True
 DELETE_MOD = False
 MIXED = False
 RANDOM_DELETIONS= False
 
 #overlaps mods to test
 RANDOM_OVERLAP_MOD=False
-SERIAL_OVERLAP_MOD=False
-RANDOM_SAMPLE_MOD=True#False#True
+SERIAL_OVERLAP_MOD=False#False
+RANDOM_SAMPLE_MOD=True
 
 #paths
 FILE_IN_NAME="lola"
