@@ -26,7 +26,7 @@ MAX_OVERLAP_NUM=1; MIN_OVERLAP_NUM=1;
 MIN_PART_LEN_PER=0.2; MAX_PART_LEN_PER=0.4; MAX_PART_LEN=700; PART_LEN_STEP=0.05;
 
 #flips
-MIN_PROB_FLIP=0; MAX_PROB_FLIP=0.05; PROB_FLIP_STEP= 0.005;
+MIN_PROB_FLIP=0; MAX_PROB_FLIP=0.1; PROB_FLIP_STEP= 0.005;
 
 
 #---------------------------------main---------------------------------------
@@ -79,40 +79,40 @@ if DEFINES.SERIAL_OVERLAP_MOD: #serial overlap - no mistakes:
     MATLAB.makeMATLAB("sereal_no_mis",noMistakes_statvec_ser['Z'],2,max_part, MIN_OVERLAP_PER,MAX_OVERLAP_PER,"parts","overlap_per","succsess", 1, OVERLAP_STEP_PER);
 
 #samples creation: of random index and const lngth
-if DEFINES.RANDOM_SAMPLE_MOD and (not DEFINES.FLIP_MOD):
-    max_part=int(DEFINES.STRING_LEN)/2;
-    constlen=MIN_PART_LEN_PER
-    noMistakes_statvec_randIndx = {"X": [], "Y": [], "Z": []}  # X for parts, Y for overlap, Z for succsess
-    while constlen< MAX_PART_LEN_PER:
-        parts = 2;
-        noMistakes_statvec_randIndx['Z'].append([])
-        while (parts < max_part):
-            arr = ArraysBuilder.randomSample_constLen(string=sourceString, parts=parts, constlen=constlen)
-            ToolMenagemnt.run_plass(arr=arr, x=parts, y=constlen, res_vec=noMistakes_statvec_randIndx, source=sourceString)
-            parts += 1
-        noMistakes_statvec_randIndx['Y'].append(constlen)
-        constlen += PART_LEN_STEP
-    graph_ind+=2;
-    plot.py_plotAll(res=noMistakes_statvec_randIndx, g_ind=graph_ind, mis_name="NO mistakes - Random indx const length",
-                        avg=False, xlabel="parts", ylabel="const len",scatter=False, hist=True)
-    MATLAB.makeMATLAB("Random_no_mis",noMistakes_statvec_randIndx['Z'],2,max_part, MIN_PART_LEN_PER,MAX_PART_LEN_PER,"parts","const len","succsess", 1, PART_LEN_STEP);
+# if DEFINES.RANDOM_SAMPLE_MOD:
+#     max_part=int(DEFINES.STRING_LEN/4);
+#     constlen=MIN_PART_LEN_PER
+#     noMistakes_statvec_randIndx = {"X": [], "Y": [], "Z": []}  # X for parts, Y for overlap, Z for succsess
+#     while constlen< MAX_PART_LEN_PER:
+#         parts = 2;
+#         noMistakes_statvec_randIndx['Z'].append([])
+#         while (parts < max_part):
+#             arr = ArraysBuilder.randomSample_constLen(string=sourceString, parts=parts, constlen=constlen)
+#             ToolMenagemnt.run_plass(arr=arr, x=parts, y=constlen, res_vec=noMistakes_statvec_randIndx, source=sourceString)
+#             parts += 1
+#         noMistakes_statvec_randIndx['Y'].append(constlen)
+#         constlen += PART_LEN_STEP
+#     graph_ind+=2;
+#     plot.py_plotAll(res=noMistakes_statvec_randIndx, g_ind=graph_ind, mis_name="NO mistakes - Random indx const length",
+#                         avg=False, xlabel="parts", ylabel="const len",scatter=True, hist=True)
+#     MATLAB.makeMATLAB("Random_no_mis",noMistakes_statvec_randIndx['Z'],2,max_part, MIN_PART_LEN_PER,MAX_PART_LEN_PER,"parts","const len","succsess", 1, PART_LEN_STEP);
 
 
 #FLIPS- RANDOM INDEX AND CONST LEN - !!!! need to check that this one is true
 if DEFINES.RANDOM_SAMPLE_MOD and DEFINES.FLIP_MOD:
-    constLen_vec=[0.1, 0.2]# 0.4, 0.5]#[200,400,600]
-    max_part=3#int(DEFINES.STRING_LEN)/2
+    constLen_vec=[0.5]#[0.1, 0.2, 0.4, 0.5]#[200,400,600]
+    max_part=int(DEFINES.STRING_LEN/4)
     for constLen in constLen_vec:
         probToflip = MIN_PROB_FLIP
         flip_statvec_randIndx = {"X": [], "Y": [], "Z": []}  # X for parts, Y for overlap, Z for succsess
-        while probToflip < MAX_PROB_FLIP:
+        while probToflip <= MAX_PROB_FLIP:
             parts = 2;
             flip_statvec_randIndx['Z'].append([])
             while (parts < max_part):
                 arr = ArraysBuilder.randomSample_constLen(string=sourceString, parts=parts, constlen=constLen)
                 arr = ArraysBuilder.flipsOnArr(arr, probToflip)
                 ToolMenagemnt.run_plass(arr=arr, x=parts, y=probToflip, res_vec=flip_statvec_randIndx, source=sourceString)
-                parts += 1
+                parts += 20
             flip_statvec_randIndx['Y'].append(probToflip)
             probToflip += PROB_FLIP_STEP
         graph_ind+=2;

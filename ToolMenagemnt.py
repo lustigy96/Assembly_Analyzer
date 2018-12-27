@@ -50,8 +50,36 @@ def TFstatistics(source, arr): #true for same and otherwise false
     for r, s in zip(res_cont, source):
         if r != s: print "Diffrent"; print res_cont; print source; return 0
     print "Same"
-    return 1
+    return 100
 
+#input: 2 strings, output:is arr is a substring of the sourcestring
+#output: return the precentage length of all the overlaps
+def stat_substring(source, arr):
+    count, stat=0,0;
+    if len(arr)>1:
+        for i in range(len(arr)-1):
+            s_1, s_2=''.join(arr[i]), ''.join(arr[i+1])
+            if is_substring_per(s_1,s_2)>0:
+               x=1; #how to treet??????
+    for sub_arr in arr:
+        if len(sub_arr)<=len(source):
+            str=''.join(sub_arr)
+            stat+=is_substring_per(source,str)
+    return stat;
+
+def is_substring_per(source,s_check):
+    stat, count=0,0;
+    for i in range(len(source) - len(s_check)):
+        for s, r in zip(source[i:], s_check):
+            if s == r:
+                count += 1;
+            else:
+                count = 0
+                break;
+        if count>0:
+            stat += count
+            break
+    return (100.0*stat)/len(source)
 
 def run_plass(arr, x, y, res_vec, source): #run plass and calc statistics
     arr2Files(arr, DEFINES.FILE_IN_NAME, 0)
@@ -73,15 +101,18 @@ def run_plass(arr, x, y, res_vec, source): #run plass and calc statistics
     if not (os.path.exists(DEFINES.PATH_FILES + "out/" + DEFINES.FILE_OUT_NAME + ".fas")):
         os.chmod(DEFINES.PYTHON_PATH + "tmp", 0o777)
         shutil.rmtree(DEFINES.PYTHON_PATH + "tmp")
-        res_vec["Z"][-1].append(-1)
+        res_vec["Z"][-1].append(-50)
         print "----------------------output file not created"
     elif os.stat(DEFINES.PATH_FILES+"out/" + DEFINES.FILE_OUT_NAME+".fas").st_size != 0: #full file
         fasta_file = open(DEFINES.PATH_FILES+"out/" + DEFINES.FILE_OUT_NAME+".fas", 'r')
         arr2=FASTA2arr(fasta_file)
         fasta_file.close()
-        res_vec["Z"][-1].append(TFstatistics(source, arr2))
+        temp1=TFstatistics(source, arr2)
+        temp2=stat_substring(source, arr2)
+        if temp1==100: res_vec["Z"][-1].append(temp1)
+        else: res_vec["Z"][-1].append(min(200,temp2))
     else:  #empty file
-        res_vec["Z"][-1].append(-1)
+        res_vec["Z"][-1].append(-50)
         print "----------------------empty file"
     if len(res_vec['Z']) == 1:
         res_vec['X'].append(x)

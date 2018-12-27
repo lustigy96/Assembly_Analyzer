@@ -5,7 +5,7 @@ BASER=0
 PLASS=1
 
 #string
-STRING_LEN=2000
+STRING_LEN=1000
 
 #mistakes difines
 FLIP_MOD = True
